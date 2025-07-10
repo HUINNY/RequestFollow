@@ -33,7 +33,7 @@ def create_issue():
                     "issuetype": {"name": JIRA_ISSUE_TYPE}
                 }
             }
-            verify=False  ← 필요 시 여기에 추가
+            verify=False  
         )
 
         if response.status_code == 201:
