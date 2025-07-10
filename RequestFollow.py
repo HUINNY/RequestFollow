@@ -11,11 +11,11 @@ app = Flask(__name__)
 # 환경 변수에서 Jira 및 Slack 설정 로드
 SLACK_BOT_TOKEN = os.environ["SLACK_BOT_TOKEN"]
 SLACK_APP_TOKEN = os.environ["SLACK_APP_TOKEN"]
-JIRA_EMAIL = os.environ["JIRA_EMAIL"]
-JIRA_API_TOKEN = os.environ["JIRA_API_TOKEN"]
 JIRA_DOMAIN = os.environ["JIRA_DOMAIN"]  # 예: yourteam.atlassian.net
 JIRA_PROJECT_KEY = os.environ["JIRA_PROJECT_KEY"]  # 예: MSW
 JIRA_ISSUE_TYPE = "Request"  # 정확한 이슈 타입 이름 필요 (예: Task, Service Request 등)
+JIRA_USER = os.environ["JIRA_USER"]
+JIRA_PASS = os.environ["JIRA_PASS"]
 
 @app.route("/slack/request-create", methods=["POST"])
 def create_issue():
@@ -29,7 +29,7 @@ def create_issue():
     try:
         response = requests.post(
             f"https://{JIRA_DOMAIN}/rest/api/2/issue",
-            auth=(JIRA_EMAIL, JIRA_API_TOKEN),
+            auth=(JIRA_USER, JIRA_PASS),
             headers={"Content-Type": "application/json"},
             json={
                 "fields": {
