@@ -47,3 +47,18 @@ def create_issue():
             response_type="ephemeral",
             text=f":x: 이슈 생성 실패\n{response.status_code} - {response.text}"
         )
+
+response = requests.post(
+    f"https://{JIRA_DOMAIN}/rest/api/3/issue",
+    auth=(JIRA_EMAIL, JIRA_API_TOKEN),
+    headers={"Content-Type": "application/json"},
+    json={
+        "fields": {
+            "project": {"key": JIRA_PROJECT_KEY},
+            "summary": f"[Slack 요청] {text}",
+            "description": f"Slack 사용자 {user}의 요청",
+            "issuetype": {"name": JIRA_ISSUE_TYPE}
+        }
+    }
+    # verify=False  ← (보안상 권장 안되지만 임시 해결책)
+)
