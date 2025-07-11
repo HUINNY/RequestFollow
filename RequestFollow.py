@@ -37,7 +37,7 @@ def create_issue():
                     "summary": f"[Slack 요청] {text}",
                     "description": f"Slack 사용자 {user}의 요청",
                     "issuetype": {"name": JIRA_ISSUE_TYPE},
-                    #"reporter": {"name": "huinkim"}  # 필요시 제거
+                    "reporter": {"name": "huinkim"}  # 필요시 제거
                 }
             },
             verify=False
